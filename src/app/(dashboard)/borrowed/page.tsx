@@ -52,8 +52,12 @@ export default async function BorrowedPage() {
   return (
     <div className="space-y-6 pb-8">
       <div>
-        <h1 className="text-2xl font-bold text-foreground tracking-tight">Money Owed</h1>
-        <p className="text-muted-foreground text-sm mt-0.5">Track money people owe you</p>
+        <h1 className="text-2xl font-bold text-foreground tracking-tight">
+          Money Owed
+        </h1>
+        <p className="text-muted-foreground text-sm mt-0.5">
+          Track money people owe you
+        </p>
       </div>
 
       {/* Stats */}
@@ -87,17 +91,26 @@ export default async function BorrowedPage() {
           <h2 className="section-heading mb-4">Who Owes You</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {personList.map((p) => (
-              <div key={p.name} className="flex items-center justify-between p-3 bg-secondary/30 rounded-xl">
+              <div
+                key={p.name}
+                className="flex items-center justify-between p-3 bg-secondary/30 rounded-xl"
+              >
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-sm">
                     {p.name.charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{p.name}</p>
-                    <p className="text-xs text-muted-foreground">{p.count} transaction{p.count !== 1 ? 's' : ''}</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {p.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {p.count} transaction{p.count !== 1 ? "s" : ""}
+                    </p>
                   </div>
                 </div>
-                <span className="text-sm font-bold text-violet-700">{formatCurrency(p.total)}</span>
+                <span className="text-sm font-bold text-violet-700">
+                  {formatCurrency(p.total)}
+                </span>
               </div>
             ))}
           </div>
@@ -110,16 +123,21 @@ export default async function BorrowedPage() {
           <h2 className="section-heading mb-3">Pending Recovery</h2>
           <div className="space-y-3">
             {pending.map((b) => {
-              const remaining = Number(b.amountOwed) - Number(b.amountReceived)
-              const pct = Math.round((Number(b.amountReceived) / Number(b.amountOwed)) * 100)
-              const isOverdue = b.dueDate && getDaysUntil(b.dueDate) < 0
-              const daysLeft = b.dueDate ? getDaysUntil(b.dueDate) : null
+              const remaining = Number(b.amountOwed) - Number(b.amountReceived);
+              const pct = Math.round(
+                (Number(b.amountReceived) / Number(b.amountOwed)) * 100,
+              );
+              const isOverdue = b.dueDate && getDaysUntil(b.dueDate) < 0;
+              const daysLeft = b.dueDate ? getDaysUntil(b.dueDate) : null;
 
               return (
-                <div key={b.id} className={cn(
-                  'bg-white border rounded-2xl p-5',
-                  isOverdue ? 'border-rose-200' : 'border-border'
-                )}>
+                <div
+                  key={b.id}
+                  className={cn(
+                    "bg-white border rounded-2xl p-5",
+                    isOverdue ? "border-rose-200" : "border-border",
+                  )}
+                >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-xl bg-violet-100 flex items-center justify-center font-bold text-violet-700">
@@ -127,65 +145,104 @@ export default async function BorrowedPage() {
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <p className="font-semibold text-foreground">{b.personName}</p>
-                          <span className="text-xs text-muted-foreground">{PERSON_TYPE_ICONS[b.personType]} {b.personType.toLowerCase()}</span>
+                          <p className="font-semibold text-foreground">
+                            {b.personName}
+                          </p>
+                          <span className="text-xs text-muted-foreground">
+                            {PERSON_TYPE_ICONS[b.personType]}{" "}
+                            {b.personType.toLowerCase()}
+                          </span>
                         </div>
-                        <p className="text-xs text-muted-foreground">{b.transaction.title} · {b.transaction.card.nickname}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {b.transaction.title} · {b.transaction.card.nickname}
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-violet-700">{formatCurrency(remaining)}</p>
-                      <p className="text-xs text-muted-foreground">of {formatCurrency(b.amountOwed)}</p>
+                      <p className="text-lg font-bold text-violet-700">
+                        {formatCurrency(remaining)}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        of {formatCurrency(b.amountOwed)}
+                      </p>
                     </div>
                   </div>
 
                   {/* Progress */}
-                  {b.paymentStatus === 'PARTIALLY_PAID' && (
+                  {b.paymentStatus === "PARTIALLY_PAID" && (
                     <div className="mb-3">
                       <div className="flex justify-between text-xs text-muted-foreground mb-1">
-                        <span>Received: {formatCurrency(b.amountReceived)}</span>
+                        <span>
+                          Received: {formatCurrency(b.amountReceived)}
+                        </span>
                         <span>{pct}%</span>
                       </div>
                       <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
-                        <div className="h-full bg-amber-500 rounded-full" style={{ width: `${pct}%` }} />
+                        <div
+                          className="h-full bg-amber-500 rounded-full"
+                          style={{ width: `${pct}%` }}
+                        />
                       </div>
                     </div>
                   )}
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className={cn(
-                        'text-xs font-semibold px-2 py-0.5 rounded-full',
-                        STATUS_COLORS[b.paymentStatus as keyof typeof STATUS_COLORS]
-                      )}>
-                        {b.paymentStatus.replace(/_/g, ' ')}
+                      <span
+                        className={cn(
+                          "text-xs font-semibold px-2 py-0.5 rounded-full",
+                          STATUS_COLORS[
+                            b.paymentStatus as keyof typeof STATUS_COLORS
+                          ],
+                        )}
+                      >
+                        {b.paymentStatus.replace(/_/g, " ")}
                       </span>
                       {daysLeft !== null && (
-                        <span className={cn(
-                          'text-xs',
-                          isOverdue ? 'text-rose-600 font-semibold' : 'text-muted-foreground'
-                        )}>
-                          {isOverdue ? `${Math.abs(daysLeft)}d overdue` : `due in ${daysLeft}d`}
+                        <span
+                          className={cn(
+                            "text-xs",
+                            isOverdue
+                              ? "text-rose-600 font-semibold"
+                              : "text-muted-foreground",
+                          )}
+                        >
+                          {isOverdue
+                            ? `${Math.abs(daysLeft)}d overdue`
+                            : `due in ${daysLeft}d`}
                         </span>
                       )}
                     </div>
-                    <AddRepaymentBtn borrowedId={b.id} personName={b.personName} remaining={remaining} />
+                    <AddRepaymentBtn
+                      borrowedId={b.id}
+                      personName={b.personName}
+                      remaining={remaining}
+                    />
                   </div>
 
                   {/* Repayment history */}
                   {b.repayments.length > 0 && (
                     <div className="mt-3 pt-3 border-t border-border space-y-1.5">
-                      <p className="text-xs font-medium text-muted-foreground">Payment history:</p>
+                      <p className="text-xs font-medium text-muted-foreground">
+                        Payment history:
+                      </p>
                       {b.repayments.map((r) => (
-                        <div key={r.id} className="flex justify-between text-xs">
-                          <span className="text-muted-foreground">{formatDate(r.receivedDate)}</span>
-                          <span className="text-emerald-600 font-semibold">+{formatCurrency(r.amount)}</span>
+                        <div
+                          key={r.id}
+                          className="flex justify-between text-xs"
+                        >
+                          <span className="text-muted-foreground">
+                            {formatDate(r.receivedDate)}
+                          </span>
+                          <span className="text-emerald-600 font-semibold">
+                            +{formatCurrency(r.amount)}
+                          </span>
                         </div>
                       ))}
                     </div>
                   )}
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -197,15 +254,24 @@ export default async function BorrowedPage() {
           <h2 className="section-heading mb-3">Settled</h2>
           <div className="space-y-2">
             {settled.map((b) => (
-              <div key={b.id} className="bg-white border border-border rounded-xl px-5 py-3 flex items-center justify-between">
+              <div
+                key={b.id}
+                className="bg-white border border-border rounded-xl px-5 py-3 flex items-center justify-between"
+              >
                 <div className="flex items-center gap-3">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0" />
                   <div>
-                    <p className="text-sm font-semibold text-foreground">{b.personName}</p>
-                    <p className="text-xs text-muted-foreground">{b.transaction.title}</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {b.personName}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {b.transaction.title}
+                    </p>
                   </div>
                 </div>
-                <span className="text-sm font-bold text-emerald-600">{formatCurrency(b.amountOwed)}</span>
+                <span className="text-sm font-bold text-emerald-600">
+                  {formatCurrency(b.amountOwed)}
+                </span>
               </div>
             ))}
           </div>
@@ -216,9 +282,11 @@ export default async function BorrowedPage() {
         <div className="text-center py-20">
           <Users className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
           <h3 className="font-semibold mb-1">No borrowed expenses</h3>
-          <p className="text-sm text-muted-foreground">When you add transactions for others, they'll appear here</p>
+          <p className="text-sm text-muted-foreground">
+            When you add transactions for others, they&apos;ll appear here
+          </p>
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -1,36 +1,36 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { CreditCard, Eye, EyeOff, Loader2 } from 'lucide-react'
+import { useState } from "react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { CreditCard, Eye, EyeOff, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPass, setShowPass] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const result = await signIn('credentials', {
+    const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
-    })
+    });
 
     if (result?.error) {
-      setError('Invalid email or password')
-      setLoading(false)
+      setError("Invalid email or password");
+      setLoading(false);
     } else {
-      router.push('/dashboard')
-      router.refresh()
+      router.push("/dashboard");
+      router.refresh();
     }
   }
 
@@ -42,9 +42,13 @@ export default function LoginPage() {
           <div className="w-10 h-10 rounded-xl bg-blue-500 flex items-center justify-center">
             <CreditCard className="w-5 h-5 text-white" />
           </div>
-          <span className="text-2xl font-bold text-white tracking-tight">CardZen</span>
+          <span className="text-2xl font-bold text-white tracking-tight">
+            CardZen
+          </span>
         </div>
-        <p className="text-slate-400 text-sm">Stay stress-free with your credit cards</p>
+        <p className="text-slate-400 text-sm">
+          Stay stress-free with your credit cards
+        </p>
       </div>
 
       {/* Card */}
@@ -60,7 +64,9 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Email</label>
+            <label className="block text-sm font-medium text-slate-300 mb-1.5">
+              Email
+            </label>
             <input
               type="email"
               value={email}
@@ -72,10 +78,12 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-1.5">Password</label>
+            <label className="block text-sm font-medium text-slate-300 mb-1.5">
+              Password
+            </label>
             <div className="relative">
               <input
-                type={showPass ? 'text' : 'password'}
+                type={showPass ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
@@ -87,7 +95,11 @@ export default function LoginPage() {
                 onClick={() => setShowPass(!showPass)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
               >
-                {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                {showPass ? (
+                  <EyeOff className="w-4 h-4" />
+                ) : (
+                  <Eye className="w-4 h-4" />
+                )}
               </button>
             </div>
           </div>
@@ -103,12 +115,15 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-5 text-center text-sm text-slate-400">
-          Don't have an account?{' '}
-          <Link href="/register" className="text-blue-400 hover:text-blue-300 font-medium">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/register"
+            className="text-blue-400 hover:text-blue-300 font-medium"
+          >
             Create one
           </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }
