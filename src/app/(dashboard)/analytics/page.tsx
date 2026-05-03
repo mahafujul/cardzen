@@ -1,7 +1,6 @@
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { startOfMonth, endOfMonth, subMonths, format } from 'date-fns'
-import { formatCurrency } from '@/lib/utils'
 import SpendingCharts from '@/components/dashboard/SpendingCharts'
 
 export default async function AnalyticsPage() {

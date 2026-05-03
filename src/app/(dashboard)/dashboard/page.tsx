@@ -1,10 +1,10 @@
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { formatCurrency, formatDate, getDaysUntil, getQuarterDates, getAnnualSpendStart, percentOf } from '@/lib/utils'
+import { formatCurrency, formatDate, getDaysUntil, percentOf } from '@/lib/utils'
 import { startOfMonth, endOfMonth, subMonths } from 'date-fns'
 import {
   CreditCard, TrendingUp, TrendingDown, AlertCircle, Clock,
-  Percent, Users, BadgeDollarSign, ArrowRight, CheckCircle2
+  Percent, Users, ArrowRight
 } from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'

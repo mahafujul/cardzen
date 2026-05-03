@@ -1,53 +1,64 @@
-import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { formatCurrency, formatDate, getDaysUntil } from '@/lib/utils'
-import { cn } from '@/lib/utils'
-import { Users, AlertCircle, CheckCircle2, Clock } from 'lucide-react'
-import AddRepaymentBtn from '@/components/borrowed/AddRepaymentBtn'
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import { formatCurrency, formatDate, getDaysUntil } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { Users, AlertCircle, CheckCircle2 } from "lucide-react";
+import AddRepaymentBtn from "@/components/borrowed/AddRepaymentBtn";
 
 export default async function BorrowedPage() {
-  const session = await auth()
-  const userId = session!.user.id
+  const session = await auth();
+  const userId = session!.user.id;
 
   const borrowed = await prisma.borrowedExpense.findMany({
     where: { userId },
     include: {
       transaction: { include: { card: true } },
-      repayments: { orderBy: { receivedDate: 'asc' } },
+      repayments: { orderBy: { receivedDate: "asc" } },
     },
-    orderBy: { createdAt: 'desc' },
-  })
+    orderBy: { createdAt: "desc" },
+  });
 
-  const pending = borrowed.filter(b => b.paymentStatus !== 'FULLY_PAID')
-  const settled = borrowed.filter(b => b.paymentStatus === 'FULLY_PAID')
-  const overdue = pending.filter(b => b.dueDate && getDaysUntil(b.dueDate) < 0)
+  const pending = borrowed.filter((b) => b.paymentStatus !== "FULLY_PAID");
+  const settled = borrowed.filter((b) => b.paymentStatus === "FULLY_PAID");
+  const overdue = pending.filter(
+    (b) => b.dueDate && getDaysUntil(b.dueDate) < 0,
+  );
 
-  const totalPending = pending.reduce((sum, b) => sum + Number(b.amountOwed) - Number(b.amountReceived), 0)
+  const totalPending = pending.reduce(
+    (sum, b) => sum + Number(b.amountOwed) - Number(b.amountReceived),
+    0,
+  );
 
   // Person-wise summary
-  const personSummary: Record<string, { name: string; total: number; count: number }> = {}
+  const personSummary: Record<
+    string,
+    { name: string; total: number; count: number }
+  > = {};
   for (const b of pending) {
     if (!personSummary[b.personName]) {
-      personSummary[b.personName] = { name: b.personName, total: 0, count: 0 }
+      personSummary[b.personName] = { name: b.personName, total: 0, count: 0 };
     }
-    personSummary[b.personName].total += Number(b.amountOwed) - Number(b.amountReceived)
-    personSummary[b.personName].count++
+    personSummary[b.personName].total +=
+      Number(b.amountOwed) - Number(b.amountReceived);
+    personSummary[b.personName].count++;
   }
-  const personList = Object.values(personSummary).sort((a, b) => b.total - a.total)
+  const personList = Object.values(personSummary).sort(
+    (a, b) => b.total - a.total,
+  );
 
   const STATUS_COLORS = {
-    NOT_PAID: 'text-rose-700 bg-rose-50',
-    PARTIALLY_PAID: 'text-amber-700 bg-amber-50',
-    FULLY_PAID: 'text-emerald-700 bg-emerald-50',
-  }
+    NOT_PAID: "text-rose-700 bg-rose-50",
+    PARTIALLY_PAID: "text-amber-700 bg-amber-50",
+    FULLY_PAID: "text-emerald-700 bg-emerald-50",
+  };
 
   const PERSON_TYPE_ICONS: Record<string, string> = {
-    FRIEND: '👫',
-    FAMILY: '👨‍👩‍👧',
-    RELATIVE: '👴',
-    COLLEAGUE: '💼',
-    OTHER: '👤',
-  }
+    FRIEND: "👫",
+    FAMILY: "👨‍👩‍👧",
+    RELATIVE: "👴",
+    COLLEAGUE: "💼",
+    OTHER: "👤",
+  };
 
   return (
     <div className="space-y-6 pb-8">
