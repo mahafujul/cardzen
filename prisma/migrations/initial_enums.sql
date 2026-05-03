@@ -1,0 +1,35 @@
+-- CreateEnum
+CREATE TYPE "CardType" AS ENUM ('VISA', 'MASTERCARD', 'RUPAY', 'AMEX', 'DINERS', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "CardStatus" AS ENUM ('ACTIVE', 'INACTIVE');
+
+-- CreateEnum
+CREATE TYPE "CashbackType" AS ENUM ('FLAT', 'CATEGORY_BASED', 'NONE');
+
+-- CreateEnum
+CREATE TYPE "CashbackCapType" AS ENUM ('NO_CAP', 'MONTHLY_CAP', 'QUARTERLY_CAP', 'ANNUAL_CAP');
+
+-- CreateEnum
+CREATE TYPE "CashbackCapPeriod" AS ENUM ('MONTHLY', 'QUARTERLY', 'ANNUALLY');
+
+-- CreateEnum
+CREATE TYPE "FeeType" AS ENUM ('LIFETIME_FREE', 'ANNUAL_FEE', 'JOINING_AND_ANNUAL_FEE');
+
+-- CreateEnum
+CREATE TYPE "PlatformType" AS ENUM ('ONLINE', 'OFFLINE');
+
+-- CreateEnum
+CREATE TYPE "Category" AS ENUM ('FOOD', 'SHOPPING', 'TRAVEL', 'UTILITY', 'BILLS', 'SUBSCRIPTION', 'MEDICAL', 'FUEL', 'OTHERS');
+
+-- CreateEnum
+CREATE TYPE "PersonType" AS ENUM ('FRIEND', 'FAMILY', 'RELATIVE', 'COLLEAGUE', 'OTHER');
+
+-- CreateEnum
+CREATE TYPE "PaymentStatus" AS ENUM ('NOT_PAID', 'PARTIALLY_PAID', 'FULLY_PAID');
+
+-- CreateEnum
+CREATE TYPE "CashbackStatus" AS ENUM ('PENDING', 'CREDITED', 'MISSED');
+
+-- CreateEnum
+CREATE TYPE "BillingPaymentStatus" AS ENUM ('UNPAID', 'PARTIALLY_PAID', 'PAID');
