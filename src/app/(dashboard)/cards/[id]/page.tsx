@@ -136,7 +136,9 @@ export default async function CardDetailPage({
         <div className="grid grid-cols-3 gap-4">
           <div>
             <p className="opacity-60 text-xs">Credit Limit</p>
-            <p className="font-bold">{formatCurrency(card.creditLimit)}</p>
+            <p className="font-bold">
+              {formatCurrency(Number(card.creditLimit))}
+            </p>
           </div>
           <div>
             <p className="opacity-60 text-xs">Billing Date</p>
@@ -232,11 +234,12 @@ export default async function CardDetailPage({
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-bold">
-                    {formatCurrency(tx.amount)}
+                    {formatCurrency(Number(tx.amount))}
                   </p>
                   {tx.cashbackRecord && (
                     <p className="text-xs text-amber-600">
-                      +{formatCurrency(tx.cashbackRecord.expectedAmount)}
+                      +
+                      {formatCurrency(Number(tx.cashbackRecord.expectedAmount))}
                     </p>
                   )}
                 </div>

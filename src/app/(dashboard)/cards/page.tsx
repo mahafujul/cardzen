@@ -135,7 +135,7 @@ export default async function CardsPage() {
                     <div>
                       <p className="text-white/60 text-xs">Credit Limit</p>
                       <p className="text-white font-semibold">
-                        {formatCurrency(card.creditLimit)}
+                        {formatCurrency(Number(card.creditLimit))}
                       </p>
                     </div>
                     <div className="text-right">

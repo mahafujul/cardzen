@@ -174,7 +174,7 @@ export default async function BorrowedPage() {
                         {formatCurrency(remaining)}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        of {formatCurrency(b.amountOwed)}
+                        of {formatCurrency(Number(b.amountOwed))}
                       </p>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ export default async function BorrowedPage() {
                     <div className="mb-3">
                       <div className="flex justify-between text-xs text-muted-foreground mb-1">
                         <span>
-                          Received: {formatCurrency(b.amountReceived)}
+                          Received: {formatCurrency(Number(b.amountReceived))}
                         </span>
                         <span>{pct}%</span>
                       </div>
@@ -246,7 +246,7 @@ export default async function BorrowedPage() {
                             {formatDate(r.receivedDate)}
                           </span>
                           <span className="text-emerald-600 font-semibold">
-                            +{formatCurrency(r.amount)}
+                            +{formatCurrency(Number(r.amount))}
                           </span>
                         </div>
                       ))}
@@ -281,7 +281,7 @@ export default async function BorrowedPage() {
                   </div>
                 </div>
                 <span className="text-sm font-bold text-emerald-600">
-                  {formatCurrency(b.amountOwed)}
+                  {formatCurrency(Number(b.amountOwed))}
                 </span>
               </div>
             ))}

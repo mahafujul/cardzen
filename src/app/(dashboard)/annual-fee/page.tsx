@@ -160,11 +160,12 @@ export default async function AnnualFeePage() {
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-bold text-foreground">
-                        {formatCurrency(card.annualFeeAmount || 0)}/yr
+                        {formatCurrency(Number(card.annualFeeAmount) || 0)}/yr
                       </p>
                       {card.joiningFeeAmount && (
                         <p className="text-xs text-muted-foreground">
-                          +{formatCurrency(card.joiningFeeAmount)} joining
+                          +{formatCurrency(Number(card.joiningFeeAmount))}{" "}
+                          joining
                         </p>
                       )}
                     </div>

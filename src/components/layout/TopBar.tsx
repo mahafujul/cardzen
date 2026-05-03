@@ -1,7 +1,7 @@
 'use client'
 
 import { signOut } from 'next-auth/react'
-import { LogOut, Bell, User } from 'lucide-react'
+import { LogOut, User } from 'lucide-react'
 
 interface TopBarProps {
   user: { name?: string | null; email?: string | null }
