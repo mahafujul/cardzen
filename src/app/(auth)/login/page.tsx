@@ -13,6 +13,8 @@ export default function LoginPage() {
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const registrationEnabled =
+    process.env.NEXT_PUBLIC_REGISTRATION_ENABLED === "true";
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -114,15 +116,17 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-slate-400">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="/register"
-            className="text-blue-400 hover:text-blue-300 font-medium"
-          >
-            Create one
-          </Link>
-        </p>
+        {registrationEnabled && (
+          <p className="mt-5 text-center text-sm text-slate-400">
+            Don&apos;t have an account?{" "}
+            <Link
+              href="/register"
+              className="text-blue-400 hover:text-blue-300 font-medium"
+            >
+              Create one
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );
