@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { signOut } from 'next-auth/react'
-import { LogOut, User } from 'lucide-react'
+import { signOut } from "next-auth/react";
+import { LogOut, User } from "lucide-react";
 
 interface TopBarProps {
-  user: { name?: string | null; email?: string | null }
+  user: { name?: string | null; email?: string | null };
 }
 
 export default function TopBar({ user }: TopBarProps) {
   return (
-    <header className="h-14 border-b border-border bg-background/80 backdrop-blur-sm flex items-center justify-between px-4 lg:px-6 flex-shrink-0 pl-16 lg:pl-6">
+    <header className="sticky top-0 z-10 h-14 border-b border-border bg-background/80 backdrop-blur-sm flex items-center justify-between px-4 lg:px-6 flex-shrink-0 pl-16 lg:pl-6">
       <div />
       <div className="flex items-center gap-2">
         <div className="flex items-center gap-2 pl-3 border-l border-border">
@@ -20,7 +20,7 @@ export default function TopBar({ user }: TopBarProps) {
             {user.name || user.email}
           </span>
           <button
-            onClick={() => signOut({ callbackUrl: '/login' })}
+            onClick={() => signOut({ callbackUrl: "/login" })}
             className="p-1.5 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
             title="Sign out"
           >
@@ -29,5 +29,5 @@ export default function TopBar({ user }: TopBarProps) {
         </div>
       </div>
     </header>
-  )
+  );
 }
