@@ -76,6 +76,9 @@ DATABASE_URL="postgresql://username:password@ep-xxxx.us-east-2.aws.neon.tech/car
 NEXTAUTH_SECRET="generate-with: openssl rand -base64 32"
 NEXTAUTH_URL="http://localhost:3000"
 APP_ENV="development"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_REGISTRATION_ENABLED=false
+# Make the above variable true to enable user registration feature from the login page
 ```
 
 ### 3. Start Local Database (Docker)
@@ -128,6 +131,8 @@ DATABASE_URL="your-neon-or-postgres-url"
 NEXTAUTH_SECRET="super-secret-min-32-chars"
 NEXTAUTH_URL="https://yourdomain.com"
 APP_ENV="production"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+NEXT_PUBLIC_REGISTRATION_ENABLED=false
 ```
 
 If using bundled PostgreSQL (docker-compose.yml):
